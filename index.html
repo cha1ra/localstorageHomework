@@ -5,35 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="./css/style.css">
-    <title>Document</title>
+    <title>TempNote</title>
 </head>
 <body>
     <header>
-        <h1>ぺぺぺぺペッペぺえええ</h1>
+        <h1>TempNote</h1>
     </header>
-    <nav>
-        <form action="">
-            <input type="text" name="search" id="" value="Search...">
-            <input type="submit" value="Search">
-        </form>
-        <ul id="memo-list">
-            <li>test1 <button>Remove</button></li>
-            <li>test2 <button>Remove</button></li>
-            <li>test3 <button>Remove</button></li> 
-        </ul>
-        <button>Add</button>
-    </nav>
-    <main>
-        <div id="search">
-            <h2>検索</h2>
-        </div>
-        <div id="memo-card">
-            <textarea class="title" cols="30" rows="2"></textarea>
-            <textarea class="content" cols="30" rows="10"></textarea>
-        </div>
-        <button id="save">Save</button>
-    </main>
-
+    <div id="content">
+        <nav>
+            <form action="">
+                <input type="text" name="search" id="" value="Search...">
+                <input type="submit" value="Search">
+            </form>
+            <div id="memo-list"></div>
+            <button id="add">Add</button>
+            <button id="clear-all">Clear All</button>
+        </nav>
+        <main>
+            <div id="search">
+            </div>
+            <div id="memo-card">
+                <textarea id="title" cols="30" rows="2"></textarea>
+                <textarea id="note" cols="30" rows="10"></textarea>
+            </div>
+        </main>
+    </div>
     <footer>
         2018 cha1ra.com All Rights Reserved.
     </footer>

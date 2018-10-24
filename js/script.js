@@ -1,24 +1,17 @@
 /*------------------
 全体のロジック
 ------------------*/
-const len = localStorage.length;
+var len = localStorage.length;
+var memoCard = {};
+var latestIdNumber;
+var currentIdNumber = 1;
 
 $(function(){
-    initialSettings();
-    loadMemoData();
-
-
-
-    let datalist = {
-        data1: ["test", "test"],
-        data2: ["hoge2"]
-    };
-    console.log(datalist);
-    console.log(datalist.data1);
-
-    // let memoCard = ["test","test"]
-    // JSON.stringify(messages);
-
+    if(len==0) createMemoData(1);
+    getCurrentID();
+    memoCard = getMemoData(1);
+    setMemoData();
+    setMenuBar();
 });
 
 
@@ -35,59 +28,128 @@ $doc.on('keydown', function(e){
 /*------------------
 メモ帳の関数
 ------------------*/
-
-function initialSettings(){
+function getCurrentID(){
     if(len == 0){
-        logTitle("You use this app for the first time.");
-        localStorage.setItem("m1","");
+        latestIdNumber = 1;
+    }else{
+        latestIdNumber = convertKeyToId(localStorage.key(len-1));
     }
+    console.log("latestIdNumber:" + latestIdNumber);
+}
+
+function createMemoData(id){
+    id = convertIdToKey(id);
+    let initData = JSON.stringify({date: getDate() ,title:"件名",note:"本文を入力してください..."});
+    localStorage.setItem(id,initData);
+}
+
+function getMemoData(id){
+    id = convertIdToKey(id);
+    return JSON.parse(localStorage.getItem(id));
+}
+
+function setMemoData(){
+    $("#title").val(memoCard.title);
+    $("#note").val(memoCard.note);
+}
+
+function reloadMemoData(id){
+    memoCard = getMemoData(id);
+    id = convertIdToKey(id);
+    $("#title").val(memoCard.title);
+    $("#note").val(memoCard.note);
 }
 
 
+//メモ帳の追加
+$("#add").on("click",function(){
+    latestIdNumber++;
+    createMemoData(latestIdNumber);
+    setMenuBar();
+    console.log("Add memo card. Latest ID Number is " + latestIdNumber);
+})
+
+function saveMemoData(){
+    let $change = $(this).attr("id");
+    memoCard[$change] = $(this).val();
+    localStorage.setItem(convertIdToKey(currentIdNumber), JSON.stringify(memoCard));
+    setMenuBar();
+}
 
 // 入力の度にローカルストレージに格納
-$('#memo-card > textarea').on("input", updateMemoData);
+$('#memo-card > textarea').on("input", saveMemoData);
 
 
-
-
-function loadMemoData(){
-    logTitle("Get Memo data");
-    console.log(`There are ${len} Memos.\nStart Loading...`);
-    for(let i=1; i<=len; i++){
-        const v = localStorage.getItem("memo"+i);
-        $("#memo"+i).val(v);
+/*------------------
+メニューバー
+------------------*/
+function setMenuBar(){
+    len = localStorage.length;
+    var navContent = "<ul>";
+    for (let i=0; i<len; i++){
+        let key = localStorage.key(i);
+        navContent += `<li id="${key}">${getMemoData(key).title}
+            <ul><li>${getStringDate(getMemoData(key).date)}</li></ul>
+            </li>`;
     }
-    console.log('Finish importing Memo data.')
+    navContent += "</ul>";
+    $("#memo-list").html(navContent);
 }
 
-function updateMemoData(){
-    let $card = $(this).attr("class");
+//メニュー遷移
+$(document).on("click", "#memo-list > ul > li", function () {
+    key = $(this).attr("id");
+    reloadMemoData(key);
+    console.log("Move to ID:" + $(this).attr("id") + " ...");
+    currentIdNumber = convertKeyToId(key);
+    setMenuBar();
+});
 
-    console.log($card);
-    switch($(this).attr("class")){
-        case "title":
-            break;
-        case "content":
-            break;
-    }
-    localStorage.setItem("m1", $(this).val());
-}
 
 
 /*------------------
 その他細かいやつ
 ------------------*/
-function logTitle(title){
-    console.log("\n------------\n" + title + "\n------------\n");
+
+function convertKeyToId(key){
+    return Number(key.slice(1));
 }
 
+function convertIdToKey(id){
+    if(typeof id !== "string") id = "m" + id;
+    return id;
+}
+
+function getDate(){
+    let d = new Date();
+    return d;
+}
+
+function getStringDate(d){
+    d = new Date(d);
+    return `${d.getFullYear()}年${(d.getMonth()) + 1}月${d.getDate()}日 ${d.getHours()}:${d.getMinutes()}`;
+}
+
+//全削除
+$("#clear-all").on("click",function(){
+    if(confirm('本当に全部削除しますか？')){
+        localStorage.clear();
+        console.log("Clear All of Memo Data...")
+
+        len = 0;
+        createMemoData(1);
+        getCurrentID();
+        memoCard = getMemoData(1);
+        setMemoData();
+        setMenuBar();
+    }else{
+        return false;
+    }
+});
 
 
 /*------------------
-今回追加で学んだこと
-
-
+今回学んだこと
 
 ■IDやClassのワイルドカード指定
 http://tacosvilledge.hatenablog.com/entry/2018/05/10/141542
@@ -95,5 +157,8 @@ http://tacosvilledge.hatenablog.com/entry/2018/05/10/141542
 ■JSON.stringfy
 https://team-lab.github.io/skillup-nodejs/1/6.html
 
+■読み込みごに追加したDOMにajaxを設定
+https://qiita.com/negi/items/6ec0d3cedba499eac81a
+https://qiita.com/horikeso/items/5f6863a49e8348f63c4b
 
 ------------------*/

@@ -1,11 +1,28 @@
 @charset 'utf-8';
 
-// main{
-//     display: flex;
-//     justify-content: flex-start;
-    
-// }
+#content{
+    display:flex;
+    justify-content: flex-start;
+}
+
+main{
+    margin-left: 24px;
+}
+
+#memo-card{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
 
 #save{
     background-color: aqua;
+}
+
+textarea{
+    border: solid 1px black;
+}
+
+footer{
+    margin-top: 24px;
 }
