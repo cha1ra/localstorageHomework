@@ -72,6 +72,7 @@ $("#add").on("click",function(){
 function saveMemoData(){
     let $change = $(this).attr("id");
     memoCard[$change] = $(this).val();
+    memoCard.date = getDate();
     localStorage.setItem(convertIdToKey(currentIdNumber), JSON.stringify(memoCard));
     setMenuBar();
 }

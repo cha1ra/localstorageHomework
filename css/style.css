@@ -3,6 +3,10 @@
   justify-content: flex-start;
 }
 
+#memo-list ul > li > ul > li {
+  font-size: 8px;
+}
+
 main {
   margin-left: 24px;
 }
