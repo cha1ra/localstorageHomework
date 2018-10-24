@@ -7,7 +7,10 @@ var latestIdNumber;
 var currentIdNumber = 1;
 
 $(function(){
-    if(len==0) createMemoData(1);
+    if(isLocalStorageNull){
+        createMemoData(1);
+        
+    }
     getCurrentID();
     memoCard = getMemoData(1);
     setMemoData();
@@ -78,25 +81,32 @@ $('#memo-card > textarea').on("input", saveMemoData);
 
 
 /*------------------
+メモ帳のID管理ロジック
+------------------*/
+
+
+
+
+
+/*------------------
 メニューバー
 ------------------*/
 function setMenuBar(){
     len = localStorage.length;
-    var navContent = "<ul>";
+    var navContent = "";
     for (let i=0; i<len; i++){
         let key = localStorage.key(i);
         let keyValue = getMemoData(key);
-        navContent += `<li id="${key}">${keyValue.title}
+        navContent += `<li id="${key}" class="memo-index">${keyValue.title}
             <ul><li>${getStringDate(keyValue.date)}</li></ul>
             <ul><li>${trimForDescription(keyValue.note)}</li></ul>
             </li>`;
     }
-    navContent += "</ul>";
     $("#memo-list").html(navContent);
 }
 
 //メニュー遷移
-$(document).on("click", "#memo-list > ul > li", function () {
+$(document).on("click", "#memo-list > li", function () {
     key = $(this).attr("id");
     reloadMemoData(key);
     console.log("Move to ID:" + $(this).attr("id") + " ...");
@@ -116,7 +126,7 @@ function trimForDescription(note){
 
 
 /*------------------
-その他細かいやつ
+その他関数(コンバーター・NULL判定 etc.)
 ------------------*/
 
 function convertKeyToId(key){
@@ -136,6 +146,11 @@ function getDate(){
 function getStringDate(d){
     d = new Date(d);
     return `${d.getFullYear()}年${(d.getMonth()) + 1}月${d.getDate()}日 ${d.getHours()}:${d.getMinutes()}`;
+}
+
+function isLocalStorageNull(){
+    if(localStorage.length == 0) return true;
+    return false;
 }
 
 //全削除

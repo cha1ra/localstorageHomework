@@ -1,1 +1,1 @@
-#content{display:flex;justify-content:flex-start}#memo-list ul>li>ul>li{font-size:8px}main{margin-left:24px}#memo-card{display:flex;flex-direction:column;justify-content:flex-start}#save{background-color:aqua}textarea{border:solid 1px black}footer{margin-top:24px}
+header{text-align:center}#content{display:flex;justify-content:flex-start}.memo-index ul>li{font-size:8px}main{margin-left:24px}#memo-card{display:flex;flex-direction:column;justify-content:flex-start}#save{background-color:aqua}textarea{border:solid 1px black}footer{margin-top:24px;text-align:center}
