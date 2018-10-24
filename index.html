@@ -11,34 +11,34 @@
     <header>
         <h1>ぺぺぺぺペッペぺえええ</h1>
     </header>
+    <nav>
+        <form action="">
+            <input type="text" name="search" id="" value="Search...">
+            <input type="submit" value="Search">
+        </form>
+        <ul id="memo-list">
+            <li>test1 <button>Remove</button></li>
+            <li>test2 <button>Remove</button></li>
+            <li>test3 <button>Remove</button></li> 
+        </ul>
+        <button>Add</button>
+    </nav>
     <main>
-        <div id="sidebar">
-            <form action="">
-                <input type="text" name="search" id="" value="Search...">
-                <input type="submit" value="Search">
-            </form>
-            <ul id="memo-list">
-                <li >test1</li>
-                <li>test2</li>
-            </ul>
-        </div>
         <div id="search">
-            <h2>プライベートブラウズに、サヨナラバイバイ。</h2>
-            <p>今まで履歴に残したくなかった検索をサイト上にストック。</p>
-            <p>一期一会では無くなります。</p>
-            <div class="test">test</div>
-            <ul>
-                <li>contents</li>
-            </ul>
-
-            <script src="./js/jquery-3.3.1.min.js"></script>
-            <script src="./js/script.js"></script>
+            <h2>検索</h2>
         </div>
-
+        <div id="memo-card">
+            <textarea class="title" cols="30" rows="2"></textarea>
+            <textarea class="content" cols="30" rows="10"></textarea>
+        </div>
+        <button id="save">Save</button>
     </main>
 
     <footer>
         2018 cha1ra.com All Rights Reserved.
     </footer>
+
+    <script src="./js/jquery-3.3.1.min.js"></script>
+    <script src="./js/script.js"></script>
 </body>
 </html>
