@@ -15,15 +15,11 @@ $(function(){
 });
 
 
-
-
 //キー入力をするとその値が返される
 var $doc = $(document);
 $doc.on('keydown', function(e){
     $('.test').html(e.which);
 })
-
-
 
 /*------------------
 メモ帳の関数
@@ -89,8 +85,10 @@ function setMenuBar(){
     var navContent = "<ul>";
     for (let i=0; i<len; i++){
         let key = localStorage.key(i);
-        navContent += `<li id="${key}">${getMemoData(key).title}
-            <ul><li>${getStringDate(getMemoData(key).date)}</li></ul>
+        let keyValue = getMemoData(key);
+        navContent += `<li id="${key}">${keyValue.title}
+            <ul><li>${getStringDate(keyValue.date)}</li></ul>
+            <ul><li>${trimForDescription(keyValue.note)}</li></ul>
             </li>`;
     }
     navContent += "</ul>";
@@ -105,6 +103,15 @@ $(document).on("click", "#memo-list > ul > li", function () {
     currentIdNumber = convertKeyToId(key);
     setMenuBar();
 });
+
+function trimForDescription(note){
+    const charCount = 30;
+    if(note.length <= charCount){
+        return note.slice(0,charCount);
+    }else{
+        return note.slice(0,charCount) + "...";
+    }
+}
 
 
 
