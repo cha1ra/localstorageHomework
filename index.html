@@ -14,15 +14,14 @@
     <div id="content">
         <nav>
             <div id="google">
-                <input type="text" name="search" id="" value="Search...">
-                <button>Search</button>
+                <input type="text" name="search" id="" value="ノートを検索...">
+                <div class="button">検索</div>
             </div>
-            <div id="add">Add</div>
-            <div id="clear-all">Clear All</div>
-            <div id="settings">Settings</div>
+            <div id="add" class="button">追加</div>
+            <div id="clear-all" class="button">全てを消す</div>
 
             <ul>
-                <li class="memo-index">10/18 議事録
+                <li id="open-browser" class="memo-index">10/18 議事録
                     <ul>
                         <li>2018月10月24日 22:10</li>
                         <li>本日の議事録をお送りします...</li>
@@ -32,12 +31,12 @@
             </ul>
         </nav>
         <main>
-            <div id="search">
-                ここだよ
+            <div id="search" class="hidden">
+                面白いことが起こる予定
             </div>
             <div id="memo-card">
-                <textarea id="title" cols="30" rows="2"></textarea>
-                <textarea id="note" cols="30" rows="10"></textarea>
+                <textarea id="title"></textarea>
+                <textarea id="note"></textarea>
             </div>
         </main>
     </div>
@@ -46,7 +45,7 @@
     </footer>
 
     <script src="./js/jquery-3.3.1.min.js"></script>
-    <script src="./js/webbrowser.js"></script>
     <script src="./js/memo.js"></script>
+    <script src="./js/webbrowser.js"></script>
 </body>
 </html>

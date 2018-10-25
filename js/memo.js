@@ -9,20 +9,12 @@ var currentIdNumber = 1;
 $(function(){
     if(isLocalStorageNull){
         createMemoData(1);
-        
     }
     getCurrentID();
     memoCard = getMemoData(1);
     setMemoData();
     setMenuBar();
 });
-
-
-//キー入力をするとその値が返される
-var $doc = $(document);
-$doc.on('keydown', function(e){
-    $('.test').html(e.which);
-})
 
 /*------------------
 メモ帳の関数
@@ -38,7 +30,7 @@ function getCurrentID(){
 
 function createMemoData(id){
     id = convertIdToKey(id);
-    let initData = JSON.stringify({date: getDate() ,title:"件名",note:"本文を入力してください..."});
+    let initData = JSON.stringify({date: getDate() ,title:"タイトル",note:"本文を入力してください..."});
     localStorage.setItem(id,initData);
 }
 
@@ -81,14 +73,6 @@ $('#memo-card > textarea').on("input", saveMemoData);
 
 
 /*------------------
-メモ帳のID管理ロジック
-------------------*/
-
-
-
-
-
-/*------------------
 メニューバー
 ------------------*/
 function setMenuBar(){
@@ -112,6 +96,7 @@ $(document).on("click", "#memo-list > li", function () {
     console.log("Move to ID:" + $(this).attr("id") + " ...");
     currentIdNumber = convertKeyToId(key);
     setMenuBar();
+    hideWebBrowser();
 });
 
 function trimForDescription(note){
@@ -169,7 +154,6 @@ $("#clear-all").on("click",function(){
         return false;
     }
 });
-
 
 /*------------------
 今回学んだこと

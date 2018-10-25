@@ -26,6 +26,7 @@ if argument2 == 'search':
         title = el.get_text()
         url = dict(parse_qsl(urlparse(el.get("href")).query))["q"]
         print('<p><a href="' + url + '">' + title + '</a></p>')
+
 elif argument2 == 'content':
     # 内容を表示
     url = argument1
@@ -34,9 +35,6 @@ elif argument2 == 'content':
     soup = BeautifulSoup(html, 'html.parser')
     body = soup.html.body
     print(body)
-
-
-
 
 
 # PHP to Python
